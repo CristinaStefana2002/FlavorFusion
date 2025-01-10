@@ -1,0 +1,66 @@
+﻿@page
+@model FlavorFusion.Pages.MealPlans.CreateModel
+
+@{
+    ViewData["Title"] = "Create Meal Plan";
+}
+
+<h1>Create a New Meal Plan</h1>
+
+<h4>MealPlan Details</h4>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" class="form-horizontal">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Meal Plan Name -->
+                <div class="form-group">
+                    <label asp-for="MealPlan.Name" class="control-label">Meal Plan Name</label>
+                    <input asp-for="MealPlan.Name" class="form-control" placeholder="Enter the meal plan name" />
+                    <span asp-validation-for="MealPlan.Name" class="text-danger"></span>
+                </div>
+
+                <!-- Meal Plan Description -->
+                <div class="form-group">
+                    <label asp-for="MealPlan.Description" class="control-label">Description</label>
+                    <textarea asp-for="MealPlan.Description" class="form-control" placeholder="Enter a short description of the meal plan"></textarea>
+                    <span asp-validation-for="MealPlan.Description" class="text-danger"></span>
+                </div>
+
+                <!-- Meal Plan Created Date -->
+                <div class="form-group">
+                    <label asp-for="MealPlan.CreatedAt" class="control-label">Created At</label>
+                    <input asp-for="MealPlan.CreatedAt" class="form-control" type="date" />
+                    <span asp-validation-for="MealPlan.CreatedAt" class="text-danger"></span>
+                </div>
+
+                <!-- User Selection -->
+                <div class="form-group">
+                    <label asp-for="MealPlan.UserId" class="control-label">Select User</label>
+                    <select asp-for="MealPlan.UserId" class="form-control" asp-items="ViewBag.UserId">
+                        <option value="">-- Select a User --</option>
+                    </select>
+                    <span asp-validation-for="MealPlan.UserId" class="text-danger"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <input type="submit" value="Create Meal Plan" class="btn btn-success btn-lg" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index" class="btn btn-link">Back to Meal Plans List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

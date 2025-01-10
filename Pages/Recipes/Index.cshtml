@@ -1,0 +1,43 @@
+﻿@page
+@model FlavorFusion.Pages.Recipes.IndexModel
+
+@{
+    ViewData["Title"] = "Explore Our Elegant Recipes";
+}
+
+<div class="container-fluid">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <h2>Welcome! Discover our delicious recipes.</h2>
+        <p>Find the recipe with your favorite ingredients and let us know your thoughts!</p>
+    </div>
+
+    <!-- Recipe Grid -->
+    <p>
+        <a asp-page="Create" class="btn btn-success">Tell us your magic recipe! Create a new one.</a>
+    </p>
+    <div class="recipe-grid">
+        @foreach (var recipe in Model.Recipe)
+        {
+            <div class="recipe-card">
+                <img src="@recipe.ImageUrl" alt="Recipe Image" class="recipe-image" />
+                <div class="recipe-info">
+                    <h4>@recipe.Name</h4>
+                    <p class="recipe-description">@recipe.Instructions</p>
+                    <p class="recipe-user">By @recipe.User.UserName</p>
+                    <div class="recipe-reviews">
+                        <h5>Reviews:</h5>
+                        @foreach (var review in recipe.Reviews)
+                        {
+                            <div class="review-item">
+                                <p><strong>@review.User</strong>: @review.Comment</p>
+                                <p>Rating: @review.Rating &#9733;</p>
+                            </div>
+                        }
+                    </div>
+                    <a href="@Url.Page("Details", new { id = recipe.Id })" class="btn btn-primary">View Recipe</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

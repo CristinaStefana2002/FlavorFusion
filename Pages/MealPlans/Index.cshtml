@@ -1,0 +1,35 @@
+﻿@page
+@model FlavorFusion.Pages.MealPlans.IndexModel
+
+@{
+    ViewData["Title"] = "Meal Plans";
+}
+
+<div class="container-fluid">
+    <h2>Meal Plans</h2>
+    <p>
+        <a asp-action="Create" class="btn btn-success">Create New Meal Plan</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Meal Plan Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.MealPlan)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
