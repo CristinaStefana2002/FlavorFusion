@@ -5,7 +5,7 @@
 namespace FlavorFusion.Migrations.LibraryIdentity
 {
     /// <inheritdoc />
-    public partial class IdentityRoles : Migration
+    public partial class CreateIdentity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

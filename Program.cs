@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using FlavorFusion.Data;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +13,16 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<FlavorFusionContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FlavorFusionContext") ??
         throw new InvalidOperationException("Connection string 'FlavorFusionContext' not found.")));
+
+builder.Services.AddDbContext<LibraryIdentityContext>(options =>
+
+options.UseSqlServer(builder.Configuration.GetConnectionString("FlavorFusionContext") ?? throw new InvalidOperationException("Connectionstring 'FlavorFusionContext' not found."))); 
+
+
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<LibraryIdentityContext>();
 
 
 var app = builder.Build();

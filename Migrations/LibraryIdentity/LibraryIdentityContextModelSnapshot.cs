@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlavorFusion.Migrations.LibraryIdentity
 {
+    [DbContext(typeof(LibraryIdentityContext))]
     partial class LibraryIdentityContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

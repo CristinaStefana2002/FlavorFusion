@@ -11,8 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlavorFusion.Migrations.LibraryIdentity
 {
-    [Migration("20250110200934_AddCustomUser")]
-    partial class AddCustomUser
+    [DbContext(typeof(LibraryIdentityContext))]
+    [Migration("20250110211940_CreateIdentity")]
+    partial class CreateIdentity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
