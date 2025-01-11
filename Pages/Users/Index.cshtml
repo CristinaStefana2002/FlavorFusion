@@ -1,42 +1,76 @@
-﻿@page
+﻿@page "{id:int?}"
 @model FlavorFusion.Pages.Users.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1 class="display-4">Welcome to Flavor Fusion Members!</h1>
+<p class="lead">
+    Here you can see our community members, manage their profiles, and explore their delicious recipes.
+    Feel free to browse or create new members and content.
+</p>
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th> Name            </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].UserName)
+                @Html.DisplayNameFor(model => model.UserData.Users.FirstOrDefault().Email)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User[0].Email)
-            </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.User) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var user in Model.UserData.Users)
+        {
+            string selectedRow = "";
+            if (user.Id == Model.UserID)
+            {
+                selectedRow = "table-success";
+            }
+
+            <tr class="@selectedRow">
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <a asp-page="./Index" asp-route-id="@user.Id" class="btn btn-info btn-sm">Select</a>
+                    <a asp-page="Edit" asp-route-id="@user.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-page="Details" asp-route-id="@user.Id" class="btn btn-info btn-sm">Details</a>
+                    <form method="post" asp-page="Delete" asp-route-id="@user.Id" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@if (Model.UserData.Recipes != null)
+{
+    <h3>Recipes by Selected User</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in Model.UserData.Recipes)
+            {
+                <tr>
+                    <td>@recipe.Name</td>
+                    <td>
+                        <a asp-page="Details" asp-route-id="@recipe.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-page="Edit" asp-route-id="@recipe.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <form method="post" asp-page="Delete" asp-route-id="@recipe.Id" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

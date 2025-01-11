@@ -1,44 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using FlavorFusion.Data;
 using FlavorFusion.Models;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Policy;
 
 namespace FlavorFusion.Pages.Users
 {
     public class CreateModel : PageModel
     {
-        private readonly FlavorFusion.Data.FlavorFusionContext _context;
+        private readonly FlavorFusionContext _context;
 
-        public CreateModel(FlavorFusion.Data.FlavorFusionContext context)
+        public CreateModel(FlavorFusionContext context)
         {
             _context = context;
         }
 
+        [BindProperty]
+        public User User { get; set; }  // Modelul User asociat formularului
+
         public IActionResult OnGet()
         {
-            return Page();
+            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID","UserName");
+            return Page(); // Întoarce pagina Create
         }
 
-        [BindProperty]
-        public User User { get; set; } = default!;
-
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Page();
+                _context.User.Add(User); // Adaugă utilizatorul în baza de date
+                await _context.SaveChangesAsync(); // Salvează modificările
+
+                return RedirectToPage("./Index"); // Redirecționează la pagina Index
             }
-
-            _context.User.Add(User);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return Page(); // Dacă există erori, rămâne pe pagina curentă
         }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlavorFusion.Migrations.LibraryIdentity
 {
     [DbContext(typeof(LibraryIdentityContext))]
-    [Migration("20250110211940_CreateIdentity")]
+    [Migration("20250111093946_CreateIdentity")]
     partial class CreateIdentity
     {
         /// <inheritdoc />

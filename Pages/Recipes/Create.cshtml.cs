@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FlavorFusion.Pages.Recipes
 {
-    [Authorize(Roles = "Admin")]
+    
     public class CreateModel : PageModel
     {
         private readonly FlavorFusion.Data.FlavorFusionContext _context;
@@ -24,6 +24,8 @@ namespace FlavorFusion.Pages.Recipes
         public IActionResult OnGet()
         {
         ViewData["UserId"] = new SelectList(_context.User, "Id", "Id");
+        ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
+
             return Page();
         }
 

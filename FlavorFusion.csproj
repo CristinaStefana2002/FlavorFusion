@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Migrations\LibraryIdentity\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

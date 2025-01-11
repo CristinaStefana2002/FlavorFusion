@@ -23,6 +23,7 @@ namespace FlavorFusion.Pages.Users
         [BindProperty]
         public User User { get; set; } = default!;
 
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -36,6 +37,8 @@ namespace FlavorFusion.Pages.Users
                 return NotFound();
             }
             User = user;
+            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "UserName");
+
             return Page();
         }
 
